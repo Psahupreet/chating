@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Gilroy;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      font-family: Gilroy;
+    }
+    #main {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    form {
+      padding: 4vw 8vw;
+      height: 85%;
+      border: 1px solid #dadada;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      gap: 2.5vw;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <form action="/forgot" method="post">
+       <i style="padding: 20px; border: 2px solid #380d0d; border-radius: 50%; font-size: 3vw; color: rgb(69, 69, 69);" class="ri-lock-line"></i>
+        <h6 style="font-size: 18px; font-weight: 500;">Trouble logging in?</h6>
+        <p style="font-size: 15px;">Enter your email and we'll send you <br> a link to get back into your account.</p>
+        <input  placeholder="Email" style=" border: 1px solid #dadada; outline: none; border-radius: 8px; font-size: 15px; width: 20vw; padding: 7px 10px;" name="email" type="email" />
+        <button style="padding: 9px 0; width: 20vw; border-radius: 8px; border: none;">Send Login Link</button>
+      <div style="display: flex; align-items: center; gap: 1vw;">
+        <div style="width: 8vw; height: 2px; background-color: #c3c3c3;" class="ldv"></div>
+        <h6>OR</h6>
+        <div style="width: 8vw; height: 2px; background-color: #c3c3c3;" class="ldv"></div>
+      </div>
+      <a style="font-weight: 500; font-size: 14px; font-weight: 500; text-decoration: none; padding:12px 0 ; border-radius: 10px; color: #fff; width: 20vw; text-align: center; background-color: #4CB5F9;" href="/">Create New Account</a>
+      <a style="font-weight: 500; font-size: 14px; color: #ffff; font-weight: 500; text-decoration: none; background-color: #643FBD; padding:12px 0 ; border-radius: 10px;  width: 20vw; text-align: center; " href="/login">Back to Login</a>
+    </form>
+    </div>
+  </body>
+</html>

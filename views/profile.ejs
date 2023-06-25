@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Gilroy;
+    }
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #000;
+    }
+    #main {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      background-color: #000;
+    }
+
+    body::-webkit-scrollbar {
+      background: transparent;
+      width: 3.5px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: #dadada;
+      border-radius: 5px;
+    }
+
+    .left {
+      padding: 8vh 0;
+      font-size: 30px;
+      font-weight: 500;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 6%;
+      border-right: 1px solid #ffffff3c;
+      background-color: rgb(0, 0, 0);
+    }
+    .left i {
+      cursor: pointer;
+    }
+
+    .lc {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+    }
+    .left a {
+      text-decoration: none;
+      color: #dadada;
+    }
+    .ppp {
+      overflow: hidden;
+      height: 27px;
+      width: 27px;
+      border-radius: 50%;
+    }
+
+    .ppp img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .right {
+      left: 6%;
+      padding: 0 8vw;
+      padding-top: 2vw;
+      height: 100vh;
+      width: 94%;
+      position: absolute;
+    }
+    .rr {
+      height: 100%;
+      width: 100%;
+    }
+    .pp {
+      padding: 0 8vw;
+      display: flex;
+      align-items: center;
+      height: 32vh;
+      gap: 6vw;
+      width: 100%;
+      border-bottom: 1px solid #ffffff80;
+    }
+    .img {
+      height: 150px;
+      width: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .img img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .dets {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .usrdets {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #fff;
+    }
+    .usrdets button {
+      padding: 7px 20px;
+      border-radius: 10px;
+      font-weight: 500;
+      border: none;
+      background-color: #fff;
+    }
+    .usrdets i {
+      font-weight: 900;
+      font-size: 24px;
+    }
+    .fl {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #fff;
+    }
+    .bio {
+      overflow: hidden;
+      height: 11.3vh;
+      text-align: left;
+      width: 22vw;
+      color: #fff;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <div class="left">
+        <i class="ri-instagram-line"></i>
+        <div class="lc">
+          <a
+            style="color: #fff; text-decoration: none; margin: 0; padding: 0"
+            href="/home"
+          >
+            <i class="ri-home-5-line"></i
+          ></a>
+          <i class="ri-search-line"></i>
+          <a href="/chat"><i class="ri-messenger-line"></i></a>
+          <i class="ri-heart-line"></i>
+          <i id="crpost" class="ri-add-circle-line">
+            <form
+              id="frm"
+              style="display: none"
+              action="/upload/post"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input id="pfile" name="post" type="file" />
+              <input type="submit" />
+            </form>
+          </i>
+          <div class="ppp">
+            <a href="/profile">
+              <img src="/getFile/<%= user.photo %>" alt="" />
+            </a>
+          </div>
+        </div>
+        <i class="ri-menu-line"></i>
+      </div>
+      <div class="right">
+        <div class="rr">
+          <div class="pp">
+            <div class="img">
+              <img src="/getFile/<%= user.photo %>" alt="" />
+              <form
+                id="ppp"
+                style="display: none"
+                action="/upload"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <input id="file" name="photo" type="file" />
+                <input type="submit" />
+              </form>
+            </div>
+            <div class="dets">
+              <div class="usrdets">
+                <h3><%= user.username %></h3>
+                <a href="/edit"><button>Edit Profile</button></a>
+                <i class="ri-settings-2-fill"></i>
+              </div>
+              <div class="fl">
+                <h4><span><%= user.posts.length %></span> Posts</h4>
+                <h4><span><%= user.follower.length %></span> Followers</h4>
+                <h4><span><%= user.following.length %></span> Following</h4>
+              </div>
+              <div class="bio">
+                <span style="font-weight: 500; font-size: 15px"
+                  ><%= user.name %></span
+                ><br />
+                <h3 style="font-size: 13px; font-weight: 100">
+                  <%= user.bio %>
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div style="position: relative; width: 100%" class="posts">
+            <h3
+              style="
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, 0);
+                color: #fff;
+                padding: 15px;
+                border-top: 0.8px solid #fff;
+              "
+            >
+              POSTS
+            </h3>
+            <div
+              style="
+                position: absolute;
+                top: 7vh;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.3%;
+                width: 100%;
+              "
+              class="post"
+            >
+              <% user.posts.forEach(function(elem){ %>
+              <div
+                style="
+                  overflow: hidden;
+                  width: 33%;
+                  height: 39vh;
+                  /* background-color: aquamarine; */
+                  margin-top: 0.3%;
+                "
+                class="pimg"
+              >
+                <% if(elem.Ext !== 'mp4'){ %>
+                <img
+                  style="height: 100%; width: 100%; object-fit: cover"
+                  src="/getFile/<%= elem.img %>"
+                  alt=""
+                />
+                <% } %>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelector(".img").addEventListener("click", function () {
+        document.querySelector("#file").click();
+      });
+      document.querySelector("#file").addEventListener("change", function () {
+        document.querySelector("#ppp").submit();
+      });
+
+      document.querySelector("#crpost").addEventListener("click", function () {
+        document.querySelector("#pfile").click();
+      });
+      document.querySelector("#pfile").addEventListener("change", function () {
+        document.querySelector("#frm").submit();
+      });
+    </script>
+  </body>
+</html>

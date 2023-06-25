@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Gilroy;
+    }
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #000;
+    }
+    #main {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      background-color: #000;
+    }
+
+    body::-webkit-scrollbar {
+      background: transparent;
+      width: 5px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      width: 5px;
+      background-color: #dadada;
+      border-radius: 20px;
+      height: 30px;
+    }
+
+    .left {
+      z-index: 99;
+      padding: 8vh 0;
+      font-size: 30px;
+      font-weight: 500;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 6%;
+      border-right: 1px solid #ffffff3c;
+      background-color: rgb(0, 0, 0);
+    }
+    .left a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .left i {
+      cursor: pointer;
+    }
+    .lc {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+    }
+    .ic a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ppp {
+      overflow: hidden;
+      height: 27px;
+      width: 27px;
+      border-radius: 50%;
+    }
+    .ppp a img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .right {
+      display: flex;
+      left: 6%;
+      padding: 0 8vw;
+      padding-top: 3vw;
+      height: 100vh;
+      width: 94%;
+      position: absolute;
+    }
+    #right1 {
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+    #right2 {
+      height: 100%;
+      width: 100%;
+    }
+    #storys {
+      width: 100%;
+      padding: 5px 0;
+      margin-bottom: 5px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    #storys::-webkit-scrollbar {
+      display: none;
+    }
+    #story {
+      display: inline-block;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      background-color: #dadada;
+    }
+
+    #posts {
+      overflow-y: auto;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      /* height: calc(100% - 80px); */
+      height: 100%;
+
+      width: 95%;
+      padding-bottom: 10px;
+    }
+
+    #posts::-webkit-scrollbar {
+      display: none;
+    }
+    #post {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    #like {
+      color: red;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 2px;
+    }
+    .top i {
+      color: #fff;
+      font-size: 25px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .ttop {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ttop img {
+      width: 35px;
+      height: 35px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .ttop h6 {
+      color: #fff;
+      font-size: 15px;
+    }
+    .ttop i {
+      font-size: 25px;
+      color: #fff;
+    }
+    .postimg {
+      max-height: 600px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .postVideo {
+      max-height: 550px;
+      max-width: 100%;
+      align-self: center;
+      object-fit: cover;
+    }
+    .btm {
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      padding-right: 1px;
+      padding-right: 5px;
+      align-items: center;
+    }
+    .btm i {
+      font-size: 27px;
+      cursor: pointer;
+    }
+    .btm-btm {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .btm-btm a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .btm-btm i {
+      font-size: 27px;
+    }
+    .btmh6 {
+      color: #fff;
+      font-size: 14px;
+      margin-left: 2px;
+    }
+    #search-div {
+      height: 100%;
+      width: 35%;
+      background-color: rgb(224, 224, 224);
+      position: absolute;
+      left: -42%;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      z-index: 9;
+      top: 0;
+      transition: 0.6s;
+    }
+
+    #frm {
+      padding: 4vw 5vw;
+      border-bottom: 0.6px solid #6d6b6b56;
+    }
+    #frm h1 {
+      margin-bottom: 20px;
+    }
+    input {
+      border: 0.6px solid #dadada;
+      outline: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      width: 269px;
+      font-size: 16px;
+    }
+
+    .user {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .user img {
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    #searchResult {
+      padding: 2vw 5vw;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-height: 72.5%;
+      overflow: auto;
+    }
+    #searchResult a {
+      color: #000;
+      text-decoration: none;
+    }
+    video::-webkit-media-controls-fullscreen-button {
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="main">
+      <div class="left">
+        <i class="ri-instagram-line"></i>
+        <div class="lc">
+          <a href="/home"> <i class="ri-home-5-line"></i></a>
+          <i id="searchIcon" class="ri-search-line"></i>
+          <a href="/chat"> <i class="ri-messenger-line"></i></a>
+          <i class="ri-heart-line"></i>
+          <i id="crpost" class="ri-add-circle-line">
+            <form
+              id="frm"
+              style="display: none"
+              action="/upload/post"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input id="pfile" name="post" type="file" />
+              <input type="submit" />
+            </form>
+          </i>
+          <div class="ppp">
+            <a href="/profile"
+              ><img src="/getFile/<%= user.photo %>" alt="" />
+            </a>
+          </div>
+        </div>
+        <i class="ri-menu-line"></i>
+      </div>
+      <div class="right">
+        <div id="search-div">
+          <div id="frm">
+            <h1>Search</h1>
+            <form method="post">
+              <input id="search" type="text" size="30" placeholder="Search" />
+            </form>
+          </div>
+
+          <div id="searchResult"></div>
+        </div>
+        <div id="right1">
+          <!-- <div id="storys">
+            <div id="story"></div>
+            <div id="story"></div>
+            <div id="story"></div>
+            <div id="story"></div>
+            <div id="story"></div>
+            <div id="story"></div>
+            <div id="story"></div>
+            <div id="story"></div>
+          </div> -->
+          <div id="posts">
+            <% post.forEach(function(elem){ %>
+            <div id="post">
+              <div class="top">
+                <a
+                  style="text-decoration: none"
+                  href="<%= elem.userid.id === user.id ? '/profile' : elem.userid.id %>"
+                >
+                  <div class="ttop">
+                    <img src="/getFile/<%= elem.userid.photo %>" alt="" />
+                    <h6><%= elem.userid.username %></h6>
+                  </div>
+                </a>
+                <i class="ri-more-2-fill"></i>
+              </div>
+
+              <% if(elem.Ext === 'mp4'){ %>
+              <video
+                autoplay
+                muted
+                controls
+                disablePictureInPicture
+                class="postVideo"
+                src="/getFile/<%= elem.img %>"
+              ></video>
+
+              <% } else { %>
+              <img class="postImg" src="/getFile/<%= elem.img %>" alt="" />
+
+              <% } %>
+
+              <div class="btm">
+                <div class="btm-btm">
+                  <a href="/like/<%= elem.id %>">
+                    <i
+                      class="<%= elem.like.indexOf(user._id)===-1 ? 'ri-heart-line' : 'ri-heart-fill' %>"
+                      id="<%= elem.like.indexOf(user._id)===-1 ? 'unlike' : 'like' %>"
+                    ></i>
+                  </a>
+                  <i class="ri-chat-3-line"></i>
+                  <i class="ri-send-plane-fill"></i>
+                </div>
+                <a
+                  style="text-decoration: none; color: #dadada"
+                  href="/savePost/<%= elem.id %>"
+                >
+                  <i
+                    class="<%= user.Savedposts.indexOf(post._id)===-1 ? 'ri-bookmark-line' : 'ri-bookmark-fill' %>"
+                    id="<%= user.Savedposts.indexOf(post._id)===-1 ? 'unmark' : 'mark' %>"
+                  ></i
+                ></a>
+              </div>
+              <h6 class="btmh6"><span><%= elem.like.length %></span> Likes</h6>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+        <div id="right2"></div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+      $("video").trigger("play");
+      $("video").trigger("pause");
+
+      $("form").submit(function (event) {
+        event.preventDefault();
+        var search = $("#search").val();
+        if (search.trim().length > 0) {
+          $.ajax({
+            url: "/searchUser",
+            type: "POST",
+            data: {
+              search: search,
+            },
+            success: function (response) {
+              if (response.success) {
+                $("#searchResult").html("");
+                $("#search").val("");
+                let user = response.data;
+                user.forEach(function (user) {
+                  console.log(user.username);
+
+                  var a = document.createElement("a");
+                  // a.href = `user/${user._id}`;
+                  a.href =
+                    user._id == "<%= user.id %>"
+                      ? "/profile"
+                      : `/user/${user._id}`;
+                  var div = document.createElement("div");
+                  div.classList.add("user");
+                  var Img = document.createElement("img");
+                  Img.src = `getFile/${user.photo}`;
+                  var h4 = document.createElement("h4");
+                  h4.textContent = user.username;
+                  div.appendChild(Img);
+                  div.appendChild(h4);
+                  a.appendChild(div);
+                  $("#searchResult").append(a);
+                });
+              }
+            },
+          });
+        }
+      });
+
+      var count = 0;
+      document
+        .querySelector("#searchIcon")
+        .addEventListener("click", function () {
+          if (count == 0) {
+            document.querySelector("#search-div").style.left = "0";
+            count = 1;
+          } else {
+            document.querySelector("#search-div").style.left = "-42%";
+            count = 0;
+          }
+        });
+    </script>
+  </body>
+</html>

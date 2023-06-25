@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+     <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+</head>
+<style>
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Gilroy;
+    }
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background-color: #000;
+    }
+    #main {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      background-color: #000;
+    }
+
+    body::-webkit-scrollbar {
+      background: transparent;
+      width: 5px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      width: 5px;
+      background-color: #dadada;
+      border-radius: 20px;
+      height: 30px;
+    }
+
+    .left {
+      padding: 8vh 0;
+      font-size: 30px;
+      font-weight: 500;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 6%;
+      border-right: 1px solid #ffffff3c;
+      background-color: rgb(0, 0, 0);
+    }
+    .lc {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+    }
+    .ppp {
+      overflow: hidden;
+      height: 27px;
+      width: 27px;
+      border-radius: 50%;
+    }
+
+    .right {
+      display: flex;
+      justify-content: center;
+      left: 6%;
+      padding: 0 8vw;
+      padding-top: 3vw;
+      height: 100vh;
+      width: 94%;
+      position: absolute;
+    }
+
+    #edit{
+        height: 100%;
+        width: 69%;
+    }
+
+    textarea::-webkit-scrollbar{
+        display: none;
+    }
+     .ppp {
+      overflow: hidden;
+      height: 27px;
+      width: 27px;
+      border-radius: 50%;
+    }
+    .ppp a img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .left a{
+      text-decoration: none;
+      color: #dadada;
+    }
+  </style>
+<body>
+    <div id="main">
+      <div class="left">
+        <i class="ri-instagram-line"></i>
+        <div class="lc">
+         <a href="/home"> <i class="ri-home-5-line"></i></a>
+          <i class="ri-search-line"></i>
+         <a href="/chat"> <i class="ri-messenger-line"></i></a>
+          <i class="ri-heart-line"></i>
+          <i id="crpost" class="ri-add-circle-line">
+            <form
+              id="frm"
+              style="display: none"
+              action="/upload/post"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input id="pfile" name="post" type="file" />
+              <input type="submit" />
+            </form>
+          </i>
+          <div class="ppp">
+            <a href="/profile"
+              ><img src="/getFile/<%= user.photo %>" alt="" />
+            </a>
+          </div>
+        </div>
+        <i class="ri-menu-line"></i>
+      </div>
+      <div class="right">
+        <div id="edit">
+<form style="height: 100%; color: #fff; display: flex; align-items: center; justify-content: space-between; flex-direction: column; padding: 6vw 8vw;" action="/update" method="post">
+    <div style="display: flex; align-items: center; gap: 30px; ">
+        <img style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover;" src="/getFile/<%= user.photo %>" alt="">
+         <div style="display: flex; flex-direction: column; gap: 2px;" class="ndiv">
+            <h4><%= user.username %></h4>
+            <h5 style="color:#1173e9;">Change profile Photo</h5>
+    </div>
+</div>
+
+<div style=" width: 25vw; display: flex; align-items: center; justify-content: space-between; " >
+    <label >Name</label>
+    <input name="name" placeholder="Name" style="width: 18vw; background-color: #000; color: #fff; padding: 10px 10px; font-size: 16px; border: 1px solid #dadada; border-radius: 5px; outline: none;" type="text" value="<%= user.name %>">
+   
+</div>
+
+<div style=" width: 25vw; display: flex; align-items: center;justify-content: space-between; ">
+    <label >Username</label>
+    <input name="username" value="<%= user.username %>" placeholder="Username"  style="width: 18vw; background-color: #000; color: #fff; padding: 10px 10px; font-size: 16px; border: 1px solid #dadada; border-radius: 5px; outline: none;" type="text">
+   
+</div>
+
+<div style=" width: 25vw; display: flex; align-items: center; justify-content: space-between; ">
+    <label>Bio</label>
+    <textarea name="bio" placeholder="Bio"  style="resize: none;width: 18vw; background-color: #000; color: #fff; height: 8vh; font-size: 16px; padding: 10px 10px; border: 1px solid #dadada; border-radius: 5px; outline: none;" maxlength="80"><%= user.bio %></textarea>
+   
+</div>
+
+<div  style=" width: 25vw; display: flex; align-items: center; justify-content: space-between; " >
+    <label>Email</label>
+    <input name="email" value="<%= user.email %>" placeholder="Email"  style="width: 18vw; background-color: #000; color: #fff; padding: 10px 10px; font-size: 16px; border: 1px solid #dadada; border-radius: 5px; outline: none; " type="text">
+   
+</div>
+<div  style=" width: 25vw; display: flex; align-items: center; justify-content: space-between; " >
+   <a style="color: #fff; text-decoration: none; font-size: 20px;" href="/forgot">Change Password</a>
+<button style="padding: 10px 20px; border-radius: 5px; background-color:#643FBD;font-weight: 500; color: #fff; border: none" type="submit">Submit</button>
+   
+</div>
+
+</form>
+      </div>
+      </div>
+
+    </div>
+</body>
+</html>

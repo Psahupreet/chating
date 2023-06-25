@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Gilroy;
+    }
+    body {
+      background-color: rgb(0, 0, 0);
+    }
+    .offline-status {
+      color: red;
+    }
+    .online-status {
+      color: green;
+    }
+    .current-user-chat {
+      display: flex;
+      justify-content: end;
+      /* margin-bottom: 5px; */
+    }
+    .current-user-chat h6 {
+      font-size: 14px;
+      margin-top: 4.5px;
+      margin-bottom: 4.5px;
+      padding: 10px 20px;
+      border-radius: 7px;
+      width: fit-content;
+      background-color: rgba(189, 235, 217, 0.719);
+    }
+    .distance-user-chat {
+      text-align: left;
+      /* margin-bottom: 5px; */
+    }
+    .distance-user-chat h6 {
+      font-size: 14px;
+      margin-top: 9px;
+      border-radius: 7px;
+      width: fit-content;
+      padding: 10px 20px;
+      background-color: rgb(255, 255, 255);
+    }
+    .chat-container::-webkit-scrollbar {
+      background: transparent;
+      width: 5px;
+    }
+
+    .chat-container::-webkit-scrollbar-thumb {
+      width: 5px;
+      background-color: #878787;
+      border-radius: 20px;
+      height: 30px;
+    }
+
+       .left {
+      z-index: 99;
+      padding: 8vh 0;
+      font-size: 30px;
+      font-weight: 500;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 6%;
+      border-right: 1px solid #ffffff3c;
+      background-color: rgb(0, 0, 0);
+    }
+    .left a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .left i {
+      cursor: pointer;
+    }
+    .lc {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+    }
+    .ic a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ppp {
+      overflow: hidden;
+      height: 27px;
+      width: 27px;
+      border-radius: 50%;
+    }
+    .ppp a img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  </style>
+  <body>
+    <div style="display: flex; height: 100%; overflow: hidden">
+      <div
+        style="
+          position: relative;
+          width: 39%;
+          background-color: #bdd9f442;
+          height: 100vh;
+          display: flex;
+          /* flex-direction: column; */
+          /* align-items: center; */
+          justify-content: space-between;
+          /* padding-top: 20px; */
+          border-right: 0.6px solid #dadada;
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            align-items: end;
+            height: 100%;
+            width: 6vw;
+            background-color: rgb(240, 240, 240);
+            justify-content: center;
+          "
+        >
+          <img
+            id="pphoto"
+            style="
+              margin-bottom: 20px;
+              height: 25px;
+              width: 25px;
+              border-radius: 50%;
+              object-fit: cover;
+              cursor: pointer;
+            "
+            src="../images/<%= user.photo %>"
+            alt=""
+          />
+          <div class="left">
+        <i class="ri-instagram-line"></i>
+        <div class="lc">
+          <a href="/home"> <i class="ri-home-5-line"></i></a>
+          <i id="searchIcon" class="ri-search-line"></i>
+          <i class="ri-messenger-line"></i>
+          <i class="ri-heart-line"></i>
+          <i id="crpost" class="ri-add-circle-line">
+            <form
+              id="frm"
+              style="display: none"
+              action="/upload/post"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input id="pfile" name="post" type="file" />
+              <input type="submit" />
+            </form>
+          </i>
+          <div class="ppp">
+            <a href="/profile"
+              ><img src="/getFile/<%= user.photo %>" alt="" />
+            </a>
+          </div>
+        </div>
+        <i class="ri-menu-line"></i>
+      </div>
+        </div>
+        
+        <div
+          style="
+            border-left: 0.6px solid #dadada;
+            overflow: auto;
+            width: 87%;
+            background-color: #222222;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+          "
+        >
+          <% if(allUser.length > 0){ for(let i = 0; i< allUser.length; i++){ %>
+          <div
+            class="user-list"
+            style="
+              font-size: 15px;
+              border: 0.3px solid #dadada6f;
+              text-align: center;
+              border-radius: 5px;
+              margin-top: 10px;
+              padding: 8px 50px;
+              width: 90%;
+              display: flex;
+              align-items: center;
+              justify-content: last baseline;
+              gap: 10px;
+              background-color: rgb(245, 245, 245);
+            "
+            data-id="<%= allUser[i]['_id'] %>"
+            data-online="<%= allUser[i]['is_online'] %>"
+            data-name="<%= allUser[i]['username'] %>"
+            data-photo="<%= allUser[i]['photo'] %>"
+          >
+            <img
+              style="
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              "
+              src="/getFile/<%= allUser[i]['photo'] %>"
+              alt=""
+            />
+            <h6 style="font-size: 14px; color: #222222;"><%= allUser[i]['username'] %></h6>
+             <!-- <% if(allUser[i]['is_online'] == 1){ %>
+          <sup class="online-status" id="<%= allUser[i]['_id'] %>-status"
+            >Online</sup
+          >
+          <% } else{ %>
+          <sup class="offline-status" id="<%= allUser[i]['_id'] %>-status"
+            >offline</sup
+          >
+          <% } %> -->
+          </div>
+          <% } } %>
+        </div>
+        <div
+          id="prose"
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: none;
+            background-color: rgba(244, 239, 251, 0.757);
+            height: 40%;
+            width: 92.5%;
+            border-left: 0.6px solid #dadada;
+          "
+        >
+        <i id="closeprofile"  style=" cursor: pointer; font-size: 20px; position: absolute; top: 2%; right: 2%;" class="ri-close-fill"></i>
+          <img
+            id="profile"
+            style="
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              object-fit: cover;
+            "
+            src="../images/<%= user.photo %>"
+            alt="Img"
+          />
+          <form
+            style="display: none"
+            action="/upload"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input id="file" name="photo" type="file" />
+            <input type="submit" />
+          </form>
+          <h4 style="font-weight: 500; margin-top: 10px; opacity: 0.8">
+            <%= user.username %>
+          </h4>
+          <div>
+            <h6 style="opacity: 0.7; margin-top: 10px">Email</h6>
+            <h3 style="font-size: 15px; font-weight: 100; margin-top: 5px">
+              <%= user.email %>
+            </h3>
+          </div>
+          <div
+            style="
+              position: absolute;
+              bottom: 5%;
+              /* left: 3%; */
+              display: flex;
+              gap: 20px;
+              align-items: center;
+            "
+          >
+            <i class="ri-user-line"></i>
+            <h5>Profile</h5>
+          </div>
+          <a style="position: absolute; right: 5%; padding: 5px 10px; font-weight: 500; border-radius: 5px; bottom: 5%; text-decoration: none; color: #fff; background-color: #d24242;" href="/logout">LogOut</a>
+        </div>
+      </div>
+      <div
+        class="chat-section"
+        style="
+          background-color: #fbfbfb;
+          height: 100vh;
+          width: 61%;
+          overflow: hidden;
+          padding-top: 20px;
+          display: none;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            padding-left: 10px;
+            gap: 30px;
+            width: 100%;
+            height: 6.4%;
+            background-color: rgb(255, 255, 255);
+            border-radius: 2px;
+          "
+        >
+          <i id="back" style="font-size: 25px" class="ri-arrow-left-line"></i>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <img
+              id="photo"
+              style="
+                height: 35px;
+                width: 35px;
+                border-radius: 50%;
+                object-fit: cover;
+              "
+              src=""
+              alt=""
+            />
+            <div style="display: flex; flex-direction: column">
+              <h6 class="name"></h6>
+              <h6
+                id="online"
+                style="display: none; font-size: 8px; color: #0000006c"
+              >
+                Online
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div
+          class="chat-container"
+          style="
+            padding: 20px;
+            height: 85%;
+            width: 100%;
+            background-color: rgb(245, 245, 245);
+            overflow: auto;
+            overflow-x: hidden;
+          "
+        ></div>
+        <form
+          style="
+            border-top: 0.3px solid #dadada94;
+            height: 8%;
+            align-items: center;
+            display: flex;
+            width: 100%;
+            background-color: rgb(254, 254, 254);
+          "
+          id="form-chat"
+          action=""
+        >
+          <input
+            style="
+              background-color: transparent;
+              font-weight: 500;
+              font-size: 16px;
+              width: 86%;
+              height: 100%;
+              border: none;
+              outline: none;
+              padding: 0 20px;
+            "
+            id="message"
+            name="message"
+            placeholder="Type a Message..!"
+            type="text"
+          />
+
+          <button
+            style="
+              padding: 10px 15px;
+              border-radius: 20px;
+              background-color: rgb(55, 106, 194);
+              color: #ffff;
+              border: none;
+              font-weight: 500;
+            "
+            type="submit"
+          >
+            Send Msg
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"
+      integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"
+      integrity="sha512-wS6VWtjvRcylhyoArkahZUkzZFeKB7ch/MHukprGSh1XIidNvHG1rxPhyFnL73M0FC1YXPIXLRDAoOyRJNni/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+      document.querySelector("#profile").addEventListener("click", function () {
+        document.querySelector("#file").click();
+      });
+      document.querySelector("#file").addEventListener("change", function () {
+        document.querySelector("form").submit();
+      });
+
+      document.querySelector("#pphoto").addEventListener("click", function () {
+        document.querySelector("#prose").style.display = "flex";
+      });
+      document
+        .querySelector("#closeprofile")
+        .addEventListener("click", function () {
+          document.querySelector("#prose").style.display = "none";
+        });
+
+      var socket = io({
+        auth: {
+          token: "<%= user._id %>",
+        },
+      });
+      var OnlineStatus;
+      var recieverName;
+      var recieverPhoto;
+      var reciever_id;
+      var sender_id = "<%= user._id %>";
+
+      var ChatSection = document.querySelector(".chat-section");
+
+      document.querySelector("#back").addEventListener("click", function () {
+        ChatSection.style.display = "none";
+      });
+
+      // $(document).ready(function () {
+      //   $(".user-list").click(function () {
+      //     $(".chat-section").show();
+
+      //     var userId = $(this).attr("data-id");
+      //     console.log(userId);
+      //     reciever_id = userId;
+
+      //     socket.emit("existsChat", {
+      //       sender_id: sender_id,
+      //       reciever_id: reciever_id,
+      //     });
+      //   });
+      // });
+
+      var UserList = document.querySelectorAll(".user-list");
+      UserList.forEach(function (User) {
+        User.addEventListener("click", function (User) {
+          ChatSection.style.display = "initial";
+          var userId = User.target.getAttribute("data-id");
+          reciever_id = userId;
+          var name = User.target.getAttribute("data-name");
+          recieverName = name;
+          var Sendname = document.querySelector(".name");
+          Sendname.textContent = recieverName;
+
+          var photo = User.target.getAttribute("data-photo");
+          recieverPhoto = photo;
+          var SendPhoto = document.querySelector("#photo");
+          SendPhoto.src = `/getFile/${recieverPhoto}`;
+
+          var Online = User.target.getAttribute("data-online");
+          OnlineStatus = Online;
+
+          // get OnlineStatus
+          // if (OnlineStatus == 1) {
+          //   document.querySelector("#online").style.display = "initial";
+          // }
+          // if (OnlineStatus == 0) {
+          //   document.querySelector("#online").style.display = "none";
+          // }
+
+          socket.emit("existsChat", {
+            sender_id: sender_id,
+            reciever_id: reciever_id,
+          });
+        });
+      });
+
+      // Get OnlineUser
+      socket.on("getOnlineUser", function (data) {
+        $("#" + data.user_id + "-status").text("Online");
+        $("#" + data.user_id + "-status").removeClass("offline-status");
+        $("#" + data.user_id + "-status").addClass("online-status");
+        // console.log(data);
+        // if ((data.user_id = reciever_id)) {
+        //   document.querySelector("#online").style.display = "initial";
+        // }
+      });
+
+      // Get OfflineUser
+      socket.on("getOfflineUser", function (data) {
+        $("#" + data.user_id + "-status").text("Offline");
+        $("#" + data.user_id + "-status").addClass("offline-status");
+        $("#" + data.user_id + "-status").removeClass("online-status");
+        // console.log(data);
+        // if ((data.user_id = reciever_id)) {
+        //   document.querySelector("#online").style.display = "none";
+        // }
+      });
+
+      // Save Chat For User
+
+      $("#form-chat").submit(function (event) {
+        event.preventDefault();
+        var message = $("#message").val();
+        $.ajax({
+          url: "/savechat",
+          type: "POST",
+          data: {
+            sender_id: sender_id,
+            reciever_id: reciever_id,
+            message: message,
+          },
+          success: function (response) {
+            if (response.success) {
+              $("#message").val("");
+              let chat = response.data.message;
+              let html =
+                `<div class="current-user-chat" >
+          <h6 >` +
+                chat +
+                `</h6>
+        </div>`;
+              $(".chat-container").append(html);
+              scrollToBottom();
+
+              socket.emit("newChat", response.data);
+            } else {
+              alert(data.msg);
+            }
+          },
+        });
+      });
+
+      socket.on("loadNewChat", function (data) {
+        if (sender_id == data.reciever_id && reciever_id == data.sender_id) {
+          let html =
+            `<div class="distance-user-chat" >
+          <h6 >` +
+            data.message +
+            `
+                </h6>
+        </div>`;
+          $(".chat-container").append(html);
+          scrollToBottom();
+        }
+      });
+
+      // Load Old Chat
+      socket.on("loadChats", function (data) {
+        $(".chat-container").html("");
+        var chat = data.chats;
+        let html = "";
+
+        for (let x = 0; x < chat.length; x++) {
+          let addClass = "";
+          if (chat[x]["sender_id"] == sender_id) {
+            addClass = "current-user-chat";
+          } else {
+            addClass = "distance-user-chat";
+          }
+          html +=
+            `
+          <div class='` +
+            addClass +
+            `'   >
+          <h6 >` +
+            chat[x]["message"] +
+            `
+                </h6>
+        </div>
+          `;
+        }
+        $(".chat-container").append(html);
+        scrollToBottom();
+      });
+
+      let MessageArea = document.querySelector(".chat-container");
+      function scrollToBottom() {
+        MessageArea.scrollTop = MessageArea.scrollHeight;
+      }
+      
+      // typing status
+
+      // document.querySelector("#message").addEventListener("input", function () {
+      //   socket.emit("typing", {
+      //     sender_id: sender_id,
+      //     reciever_id: reciever_id
+      //   });
+      // });
+
+      // var timer;
+      // socket.on("typing", function (data) {
+      //   if (sender_id == data.reciever_id && reciever_id == data.sender_id) {
+      //     document.querySelector(".typing").style.opacity = 0.3;
+      //     clearTimeout(timer);
+      //     timer = setTimeout(function () {
+      //       document.querySelector(".typing").style.opacity = 0;
+      //     }, 300);
+      //   }
+      // });
+    </script>
+  </body>
+</html>
